@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Journal - Track Your Trades</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .stat-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-card.profit .value {
+            color: #10b981;
+        }
+
+        .stat-card.loss .value {
+            color: #ef4444;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        .form-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .trades-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        .trades-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .trades-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .trade-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .trade-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .trade-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .trade-symbol {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .trade-type {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .trade-type.long {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .trade-type.short {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .trade-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .trade-detail {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .trade-detail strong {
+            color: #333;
+        }
+
+        .trade-pnl {
+            font-size: 1.3em;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .trade-pnl.profit {
+            color: #10b981;
+        }
+
+        .trade-pnl.loss {
+            color: #ef4444;
+        }
+
+        .trade-notes {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-size: 0.9em;
+            color: #555;
+            font-style: italic;
+        }
+
+        .trade-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.85em;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-edit {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-small:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state svg {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        @media (max-width: 968px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trade-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .export-btn {
+            background: #10b981;
+            margin-top: 10px;
+        }
+
+        .export-btn:hover {
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Trading Journal</h1>
+            <p>Track, Analyze, and Improve Your Trading Performance</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Trades</h3>
+                <div class="value" id="totalTrades">0</div>
+            </div>
+            <div class="stat-card profit">
+                <h3>Winning Trades</h3>
+                <div class="value" id="winningTrades">0</div>
+            </div>
+            <div class="stat-card loss">
+                <h3>Losing Trades</h3>
+                <div class="value" id="losingTrades">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Win Rate</h3>
+                <div class="value" id="winRate">0%</div>
+            </div>
+            <div class="stat-card profit">
+                <h3>Total P&L</h3>
+                <div class="value" id="totalPnL">$0.00</div>
+            </div>
+            <div class="stat-card">
+                <h3>Avg Win</h3>
+                <div class="value" id="avgWin">$0.00</div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="form-section">
+                <h2>Add New Trade</h2>
+                <form id="tradeForm">
+                    <div class="form-group">
+                        <label for="symbol">Symbol/Ticker *</label>
+                        <input type="text" id="symbol" required placeholder="e.g., AAPL, BTC/USD">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tradeType">Trade Type *</label>
+                        <select id="tradeType" required>
+                            <option value="long">Long</option>
+                            <option value="short">Short</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="entryPrice">Entry Price *</label>
+                        <input type="number" id="entryPrice" step="0.01" required placeholder="0.00">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exitPrice">Exit Price *</label>
+                        <input type="number" id="exitPrice" step="0.01" required placeholder="0.00">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity">Quantity *</label>
+                        <input type="number" id="quantity" step="0.01" required placeholder="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="entryDate">Entry Date *</label>
+                        <input type="datetime-local" id="entryDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exitDate">Exit Date *</label>
+                        <input type="datetime-local" id="exitDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="strategy">Strategy</label>
+                        <input type="text" id="strategy" placeholder="e.g., Breakout, Reversal">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" placeholder="Trade notes, lessons learned..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn">Add Trade</button>
+                    <button type="button" class="btn export-btn" onclick="exportToCSV()">Export to CSV</button>
+                </form>
+            </div>
+
+            <div class="trades-section">
+                <h2>Trade History</h2>
+                
+                <div class="filters">
+                    <button class="filter-btn active" onclick="filterTrades('all')">All</button>
+                    <button class="filter-btn" onclick="filterTrades('long')">Long</button>
+                    <button class="filter-btn" onclick="filterTrades('short')">Short</button>
+                    <button class="filter-btn" onclick="filterTrades('profit')">Profitable</button>
+                    <button class="filter-btn" onclick="filterTrades('loss')">Losses</button>
+                </div>
+
+                <div class="trades-list" id="tradesList">
+                    <div class="empty-state">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                        <h3>No trades yet</h3>
+                        <p>Start adding your trades to track your performance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let trades = JSON.parse(localStorage.getItem('trades')) || [];
+        let currentFilter = 'all';
+        let editingTradeId = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderTrades();
+            updateStats();
+            
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('entryDate').value = now.toISOString().slice(0, 16);
+            document.getElementById('exitDate').value = now.toISOString().slice(0, 16);
+        });
+
+        document.getElementById('tradeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const trade = {
+                id: editingTradeId || Date.now(),
+                symbol: document.getElementById('symbol').value.toUpperCase(),
+                tradeType: document.getElementById('tradeType').value,
+                entryPrice: parseFloat(document.getElementById('entryPrice').value),
+                exitPrice: parseFloat(document.getElementById('exitPrice').value),
+                quantity: parseFloat(document.getElementById('quantity').value),
+                entryDate: document.getElementById('entryDate').value,
+                exitDate: document.getElementById('exitDate').value,
+                strategy: document.getElementById('strategy').value,
+                notes: document.getElementById('notes').value
+            };
+
+            if (trade.tradeType === 'long') {
+                trade.pnl = (trade.exitPrice - trade.entryPrice) * trade.quantity;
+            } else {
+                trade.pnl = (trade.entryPrice - trade.exitPrice) * trade.quantity;
+            }
+
+            if (editingTradeId) {
+                const index = trades.findIndex(t => t.id === editingTradeId);
+                trades[index] = trade;
+                editingTradeId = null;
+            } else {
+                trades.unshift(trade);
+            }
+
+            localStorage.setItem('trades', JSON.stringify(trades));
+            
+            this.reset();
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('entryDate').value = now.toISOString().slice(0, 16);
+            document.getElementById('exitDate').value = now.toISOString().slice(0, 16);
+            
+            renderTrades();
+            updateStats();
+        });
+
+        function renderTrades() {
+            const tradesList = document.getElementById('tradesList');
+            let filteredTrades = trades;
+
+            if (currentFilter === 'long') {
+                filteredTrades = trades.filter(t => t.tradeType === 'long');
+            } else if (currentFilter === 'short') {
+                filteredTrades = trades.filter(t => t.tradeType === 'short');
+            } else if (currentFilter === 'profit') {
+                filteredTrades = trades.filter(t => t.pnl > 0);
+            } else if (currentFilter === 'loss') {
+                filteredTrades = trades.filter(t => t.pnl < 0);
+            }
+
+            if (filteredTrades.length === 0) {
+                tradesList.innerHTML = '<div class="empty-state"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg><h3>No trades found</h3><p>Try a different filter or add new trades</p></div>';
+                return;
+            }
+
+            tradesList.innerHTML = filteredTrades.map(trade => '<div class="trade-card"><div class="trade-header"><div class="trade-symbol">' + trade.symbol + '</div><div class="trade-type ' + trade.tradeType + '">' + trade.tradeType.toUpperCase() + '</div></div><div class="trade-details"><div class="trade-detail"><strong>Entry:</strong> $' + trade.entryPrice.toFixed(2) + '</div><div class="trade-detail"><strong>Exit:</strong> $' + trade.exitPrice.toFixed(2) + '</div><div class="trade-detail"><strong>Quantity:</strong> ' + trade.quantity + '</div><div class="trade-detail"><strong>Strategy:</strong> ' + (trade.strategy || 'N/A') + '</div><div class="trade-detail"><strong>Entry:</strong> ' + new Date(trade.entryDate).toLocaleDateString() + '</div><div class="trade-detail"><strong>Exit:</strong> ' + new Date(trade.exitDate).toLocaleDateString() + '</div></div><div class="trade-pnl ' + (trade.pnl >= 0 ? 'profit' : 'loss') + '">' + (trade.pnl >= 0 ? '+' : '') + '$' + trade.pnl.toFixed(2) + '</div>' + (trade.notes ? '<div class="trade-notes">' + trade.notes + '</div>' : '') + '<div class="trade-actions"><button class="btn-small btn-edit" onclick="editTrade(' + trade.id + ')">Edit</button><button class="btn-small btn-delete" onclick="deleteTrade(' + trade.id + ')">Delete</button></div></div>').join('');
+        }
+
+        function updateStats() {
+            const totalTrades = trades.length;
+            const winningTrades = trades.filter(t => t.pnl > 0).length;
+            const losingTrades = trades.filter(t => t.pnl < 0).length;
+            const winRate = totalTrades > 0 ? ((winningTrades / totalTrades) * 100).toFixed(1) : 0;
+            const totalPnL = trades.reduce((sum, t) => sum + t.pnl, 0);
+            const avgWin = winningTrades > 0 ? trades.filter(t => t.pnl > 0).reduce((sum, t) => sum + t.pnl, 0) / winningTrades : 0;
+
+            document.getElementById('totalTrades').textContent = totalTrades;
+            document.getElementById('winningTrades').textContent = winningTrades;
+            document.getElementById('losingTrades').textContent = losingTrades;
+            document.getElementById('winRate').textContent = winRate + '%';
+            document.getElementById('totalPnL').textContent = (totalPnL >= 0 ? '+' : '') + '$' + totalPnL.toFixed(2);
+            document.getElementById('avgWin').textContent = '$' + avgWin.toFixed(2);
+
+            const pnlElement = document.getElementById('totalPnL');
+            pnlElement.parentElement.classList.remove('profit', 'loss');
+            if (totalPnL > 0) pnlElement.parentElement.classList.add('profit');
+            if (totalPnL < 0) pnlElement.parentElement.classList.add('loss');
+        }
+
+        function filterTrades(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderTrades();
+        }
+
+        function editTrade(id) {
+            const trade = trades.find(t => t.id === id);
+            if (!trade) return;
+
+            editingTradeId = id;
+            document.getElementById('symbol').value = trade.symbol;
+            document.getElementById('tradeType').value = trade.tradeType;
+            document.getElementById('entryPrice').value = trade.entryPrice;
+            document.getElementById('exitPrice').value = trade.exitPrice;
+            document.getElementById('quantity').value = trade.quantity;
+            document.getElementById('entryDate').value = trade.entryDate;
+            document.getElementById('exitDate').value = trade.exitDate;
+            document.getElementById('strategy').value = trade.strategy;
+            document.getElementById('notes').value = trade.notes;
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function deleteTrade(id) {
+            if (confirm('Are you sure you want to delete this trade?')) {
+                trades = trades.filter(t => t.id !== id);
+                localStorage.setItem('trades', JSON.stringify(trades));
+                renderTrades();
+                updateStats();
+            }
+        }
+
+        function exportToCSV() {
+            if (trades.length === 0) {
+                alert('No trades to export!');
+                return;
+            }
+
+            const headers = ['Symbol', 'Type', 'Entry Price', 'Exit Price', 'Quantity', 'P&L', 'Entry Date', 'Exit Date', 'Strategy', 'Notes'];
+            const rows = trades.map(t => [
+                t.symbol,
+                t.tradeType,
+                t.entryPrice,
+                t.exitPrice,
+                t.quantity,
+                t.pnl.toFixed(2),
+                t.entryDate,
+                t.exitDate,
+                t.strategy || '',
+                t.notes || ''
+            ]);
+
+            let csv = headers.join(',') + '\n';
+            rows.forEach(row => {
+                csv += row.map(cell => '"' + cell + '"').join(',') + '\n';
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'trading-journal-' + new Date().toISOString().split('T')[0] + '.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
