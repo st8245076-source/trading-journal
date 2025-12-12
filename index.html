@@ -415,6 +415,13 @@
             color: #166534;
         }
 
+        .info-text {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
         @media (max-width: 968px) {
             .main-content {
                 grid-template-columns: 1fr;
@@ -457,7 +464,7 @@
 
         <div class="market-tabs">
             <button class="market-tab active" onclick="switchMarket('stocks')">📈 Stocks</button>
-            <button class="market-tab" onclick="switchMarket('options')">📋 Options</button>
+            <button class="market-tab" onclick="switchMarket('options')">📋 Options (F&O)</button>
             <button class="market-tab" onclick="switchMarket('crypto')">₿ Crypto</button>
             <button class="market-tab" onclick="switchMarket('forex')">💱 Forex</button>
         </div>
@@ -481,11 +488,11 @@
             </div>
             <div class="stat-card profit">
                 <h3>Total P&L</h3>
-                <div class="value" id="totalPnL">$0.00</div>
+                <div class="value" id="totalPnL">₹0.00</div>
             </div>
             <div class="stat-card">
                 <h3>Avg Win</h3>
-                <div class="value" id="avgWin">$0.00</div>
+                <div class="value" id="avgWin">₹0.00</div>
             </div>
         </div>
 
@@ -495,72 +502,79 @@
                 <form id="tradeForm">
                     <div id="stocksForm">
                         <div class="form-group">
-                            <label>Popular Stocks</label>
+                            <label>Popular Stocks (NSE)</label>
                             <div class="pair-selector">
-                                <button type="button" class="pair-btn" onclick="selectPair('AAPL')">AAPL</button>
-                                <button type="button" class="pair-btn" onclick="selectPair('MSFT')">MSFT</button>
-                                <button type="button" class="pair-btn" onclick="selectPair('GOOGL')">GOOGL</button>
-                                <button type="button" class="pair-btn" onclick="selectPair('AMZN')">AMZN</button>
-                                <button type="button" class="pair-btn" onclick="selectPair('TSLA')">TSLA</button>
-                                <button type="button" class="pair-btn" onclick="selectPair('NVDA')">NVDA</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('RELIANCE')">RELIANCE</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('TCS')">TCS</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('INFY')">INFY</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('HDFCBANK')">HDFCBANK</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('ICICIBANK')">ICICIBANK</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('SBIN')">SBIN</button>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="symbol">Stock Symbol *</label>
-                            <input type="text" id="symbol" required placeholder="e.g., AAPL">
+                            <input type="text" id="symbol" required placeholder="e.g., RELIANCE">
                         </div>
 
                         <div class="form-group">
                             <label for="tradeType">Trade Type *</label>
                             <select id="tradeType" required>
-                                <option value="long">Long</option>
-                                <option value="short">Short</option>
+                                <option value="long">Long (Buy)</option>
+                                <option value="short">Short (Sell)</option>
                             </select>
                         </div>
                     </div>
 
                     <div id="optionsForm" style="display:none;">
                         <div class="form-group">
-                            <label>Popular Stocks</label>
+                            <label>Popular F&O Stocks (NSE)</label>
                             <div class="pair-selector">
-                                <button type="button" class="pair-btn" onclick="selectPair('AAPL')">AAPL</button>
-                                <button type="button" class="pair-btn" onclick="selectPair('SPY')">SPY</button>
-                                <button type="button" class="pair-btn" onclick="selectPair('QQQ')">QQQ</button>
-                                <button type="button" class="pair-btn" onclick="selectPair('TSLA')">TSLA</button>
-                                <button type="button" class="pair-btn" onclick="selectPair('NVDA')">NVDA</button>
-                                <button type="button" class="pair-btn" onclick="selectPair('AMD')">AMD</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('NIFTY')">NIFTY</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('BANKNIFTY')">BANKNIFTY</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('FINNIFTY')">FINNIFTY</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('RELIANCE')">RELIANCE</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('TCS')">TCS</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('INFY')">INFY</button>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="optionSymbol">Underlying Symbol *</label>
-                            <input type="text" id="optionSymbol" required placeholder="e.g., AAPL">
+                            <input type="text" id="optionSymbol" required placeholder="e.g., NIFTY, BANKNIFTY">
                         </div>
 
                         <div class="options-grid">
                             <div class="form-group">
                                 <label for="optionType">Option Type *</label>
                                 <select id="optionType" required>
-                                    <option value="call">Call</option>
-                                    <option value="put">Put</option>
+                                    <option value="call">Call (CE)</option>
+                                    <option value="put">Put (PE)</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label for="strikePrice">Strike Price *</label>
-                                <input type="number" id="strikePrice" step="0.01" required placeholder="0.00">
+                                <input type="number" id="strikePrice" step="0.5" required placeholder="e.g., 18000">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="expiryDate">Expiry Date *</label>
                             <input type="date" id="expiryDate" required>
+                            <div class="info-text">Weekly/Monthly expiry (Thursday for indices)</div>
                         </div>
 
                         <div class="form-group">
-                            <label for="contracts">Number of Contracts *</label>
-                            <input type="number" id="contracts" step="1" required placeholder="1">
+                            <label for="lotSize">Lot Size *</label>
+                            <input type="number" id="lotSize" step="1" required placeholder="e.g., 50 for NIFTY, 25 for BANKNIFTY">
+                            <div class="info-text">NIFTY: 50, BANKNIFTY: 25, FINNIFTY: 40</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lots">Number of Lots *</label>
+                            <input type="number" id="lots" step="1" required placeholder="1" value="1">
                         </div>
                     </div>
 
@@ -568,25 +582,25 @@
                         <div class="form-group">
                             <label>Popular Pairs</label>
                             <div class="pair-selector">
-                                <button type="button" class="pair-btn" onclick="selectPair('BTC/USD')">BTC/USD</button>
-                                <button type="button" class="pair-btn" onclick="selectPair('ETH/USD')">ETH/USD</button>
-                                <button type="button" class="pair-btn" onclick="selectPair('SOL/USD')">SOL/USD</button>
-                                <button type="button" class="pair-btn" onclick="selectPair('BNB/USD')">BNB/USD</button>
-                                <button type="button" class="pair-btn" onclick="selectPair('XRP/USD')">XRP/USD</button>
-                                <button type="button" class="pair-btn" onclick="selectPair('ADA/USD')">ADA/USD</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('BTC/USDT')">BTC/USDT</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('ETH/USDT')">ETH/USDT</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('SOL/USDT')">SOL/USDT</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('BNB/USDT')">BNB/USDT</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('XRP/USDT')">XRP/USDT</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('ADA/USDT')">ADA/USDT</button>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="cryptoPair">Crypto Pair *</label>
-                            <input type="text" id="cryptoPair" required placeholder="e.g., BTC/USD">
+                            <input type="text" id="cryptoPair" required placeholder="e.g., BTC/USDT">
                         </div>
 
                         <div class="form-group">
                             <label for="cryptoType">Trade Type *</label>
                             <select id="cryptoType" required>
-                                <option value="long">Long</option>
-                                <option value="short">Short</option>
+                                <option value="long">Long (Buy)</option>
+                                <option value="short">Short (Sell)</option>
                             </select>
                         </div>
                     </div>
@@ -599,8 +613,8 @@
                                 <button type="button" class="pair-btn" onclick="selectPair('GBP/USD')">GBP/USD</button>
                                 <button type="button" class="pair-btn" onclick="selectPair('USD/JPY')">USD/JPY</button>
                                 <button type="button" class="pair-btn" onclick="selectPair('AUD/USD')">AUD/USD</button>
-                                <button type="button" class="pair-btn" onclick="selectPair('USD/CAD')">USD/CAD</button>
-                                <button type="button" class="pair-btn" onclick="selectPair('NZD/USD')">NZD/USD</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('USD/INR')">USD/INR</button>
+                                <button type="button" class="pair-btn" onclick="selectPair('EUR/INR')">EUR/INR</button>
                             </div>
                         </div>
 
@@ -618,8 +632,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="lotSize">Lot Size *</label>
-                            <input type="number" id="lotSize" step="0.01" required placeholder="1.00">
+                            <label for="forexLotSize">Lot Size *</label>
+                            <input type="number" id="forexLotSize" step="0.01" required placeholder="1.00">
                         </div>
                     </div>
 
@@ -635,7 +649,7 @@
 
                     <div class="form-group" id="quantityGroup">
                         <label for="quantity">Quantity *</label>
-                        <input type="number" id="quantity" step="0.01" required placeholder="0">
+                        <input type="number" id="quantity" step="1" required placeholder="0">
                     </div>
 
                     <div class="form-group">
@@ -650,7 +664,7 @@
 
                     <div class="form-group">
                         <label for="strategy">Strategy</label>
-                        <input type="text" id="strategy" placeholder="e.g., Breakout, Reversal">
+                        <input type="text" id="strategy" placeholder="e.g., Breakout, Iron Condor, Straddle">
                     </div>
 
                     <div class="form-group">
@@ -668,8 +682,8 @@
                 
                 <div class="filters">
                     <button class="filter-btn active" onclick="filterTrades('all')">All</button>
-                    <button class="filter-btn" onclick="filterTrades('long')">Long</button>
-                    <button class="filter-btn" onclick="filterTrades('short')">Short</button>
+                    <button class="filter-btn" onclick="filterTrades('long')">Long/CE</button>
+                    <button class="filter-btn" onclick="filterTrades('short')">Short/PE</button>
                     <button class="filter-btn" onclick="filterTrades('profit')">Profitable</button>
                     <button class="filter-btn" onclick="filterTrades('loss')">Losses</button>
                 </div>
@@ -713,7 +727,7 @@
             
             const titles = {
                 stocks: 'Add Stock Trade',
-                options: 'Add Options Trade',
+                options: 'Add F&O Trade (Indian Market)',
                 crypto: 'Add Crypto Trade',
                 forex: 'Add Forex Trade'
             };
@@ -771,9 +785,10 @@
                 trade.tradeType = document.getElementById('optionType').value;
                 trade.strikePrice = parseFloat(document.getElementById('strikePrice').value);
                 trade.expiryDate = document.getElementById('expiryDate').value;
-                trade.contracts = parseInt(document.getElementById('contracts').value);
-                trade.quantity = trade.contracts;
-                trade.pnl = (trade.exitPrice - trade.entryPrice) * trade.contracts * 100;
+                trade.lotSize = parseInt(document.getElementById('lotSize').value);
+                trade.lots = parseInt(document.getElementById('lots').value);
+                trade.quantity = trade.lotSize * trade.lots;
+                trade.pnl = (trade.exitPrice - trade.entryPrice) * trade.quantity;
             } else if (currentMarket === 'crypto') {
                 trade.symbol = document.getElementById('cryptoPair').value.toUpperCase();
                 trade.tradeType = document.getElementById('cryptoType').value;
@@ -784,7 +799,7 @@
             } else if (currentMarket === 'forex') {
                 trade.symbol = document.getElementById('forexPair').value.toUpperCase();
                 trade.tradeType = document.getElementById('forexType').value;
-                trade.lotSize = parseFloat(document.getElementById('lotSize').value);
+                trade.lotSize = parseFloat(document.getElementById('forexLotSize').value);
                 trade.quantity = trade.lotSize;
                 const pipValue = 10;
                 trade.pnl = (trade.exitPrice - trade.entryPrice) * trade.lotSize * 100000 * pipValue;
@@ -832,14 +847,17 @@
             tradesList.innerHTML = filteredTrades.map(trade => {
                 let detailsHTML = '';
                 if (trade.market === 'options') {
-                    detailsHTML = '<div class="trade-detail"><strong>Strike:</strong> $' + trade.strikePrice.toFixed(2) + '</div><div class="trade-detail"><strong>Expiry:</strong> ' + new Date(trade.expiryDate).toLocaleDateString() + '</div><div class="trade-detail"><strong>Contracts:</strong> ' + trade.contracts + '</div>';
+                    const optionLabel = trade.tradeType === 'call' ? 'CE' : 'PE';
+                    detailsHTML = '<div class="trade-detail"><strong>Strike:</strong> ₹' + trade.strikePrice.toFixed(2) + ' ' + optionLabel + '</div><div class="trade-detail"><strong>Expiry:</strong> ' + new Date(trade.expiryDate).toLocaleDateString() + '</div><div class="trade-detail"><strong>Lot Size:</strong> ' + trade.lotSize + '</div><div class="trade-detail"><strong>Lots:</strong> ' + trade.lots + '</div><div class="trade-detail"><strong>Total Qty:</strong> ' + trade.quantity + '</div>';
                 } else if (trade.market === 'forex') {
                     detailsHTML = '<div class="trade-detail"><strong>Lot Size:</strong> ' + trade.lotSize + '</div>';
                 } else {
                     detailsHTML = '<div class="trade-detail"><strong>Quantity:</strong> ' + trade.quantity + '</div>';
                 }
                 
-                return '<div class="trade-card"><div class="trade-header"><div class="trade-symbol">' + trade.symbol + '<span class="market-badge ' + trade.market + '">' + trade.market.toUpperCase() + '</span></div><div class="trade-type ' + trade.tradeType + '">' + trade.tradeType.toUpperCase() + '</div></div><div class="trade-details"><div class="trade-detail"><strong>Entry:</strong> $' + trade.entryPrice.toFixed(2) + '</div><div class="trade-detail"><strong>Exit:</strong> $' + trade.exitPrice.toFixed(2) + '</div>' + detailsHTML + '<div class="trade-detail"><strong>Strategy:</strong> ' + (trade.strategy || 'N/A') + '</div><div class="trade-detail"><strong>Entry:</strong> ' + new Date(trade.entryDate).toLocaleDateString() + '</div><div class="trade-detail"><strong>Exit:</strong> ' + new Date(trade.exitDate).toLocaleDateString() + '</div></div><div class="trade-pnl ' + (trade.pnl >= 0 ? 'profit' : 'loss') + '">' + (trade.pnl >= 0 ? '+' : '') + '$' + trade.pnl.toFixed(2) + '</div>' + (trade.notes ? '<div class="trade-notes">' + trade.notes + '</div>' : '') + '<div class="trade-actions"><button class="btn-small btn-edit" onclick="editTrade(' + trade.id + ')">Edit</button><button class="btn-small btn-delete" onclick="deleteTrade(' + trade.id + ')">Delete</button></div></div>';
+                const typeLabel = trade.market === 'options' ? (trade.tradeType === 'call' ? 'CE' : 'PE') : trade.tradeType.toUpperCase();
+                
+                return '<div class="trade-card"><div class="trade-header"><div class="trade-symbol">' + trade.symbol + '<span class="market-badge ' + trade.market + '">' + trade.market.toUpperCase() + '</span></div><div class="trade-type ' + trade.tradeType + '">' + typeLabel + '</div></div><div class="trade-details"><div class="trade-detail"><strong>Entry:</strong> ₹' + trade.entryPrice.toFixed(2) + '</div><div class="trade-detail"><strong>Exit:</strong> ₹' + trade.exitPrice.toFixed(2) + '</div>' + detailsHTML + '<div class="trade-detail"><strong>Strategy:</strong> ' + (trade.strategy || 'N/A') + '</div><div class="trade-detail"><strong>Entry:</strong> ' + new Date(trade.entryDate).toLocaleDateString() + '</div><div class="trade-detail"><strong>Exit:</strong> ' + new Date(trade.exitDate).toLocaleDateString() + '</div></div><div class="trade-pnl ' + (trade.pnl >= 0 ? 'profit' : 'loss') + '">' + (trade.pnl >= 0 ? '+' : '') + '₹' + trade.pnl.toFixed(2) + '</div>' + (trade.notes ? '<div class="trade-notes">' + trade.notes + '</div>' : '') + '<div class="trade-actions"><button class="btn-small btn-edit" onclick="editTrade(' + trade.id + ')">Edit</button><button class="btn-small btn-delete" onclick="deleteTrade(' + trade.id + ')">Delete</button></div></div>';
             }).join('');
         }
 
@@ -856,8 +874,8 @@
             document.getElementById('winningTrades').textContent = winningTrades;
             document.getElementById('losingTrades').textContent = losingTrades;
             document.getElementById('winRate').textContent = winRate + '%';
-            document.getElementById('totalPnL').textContent = (totalPnL >= 0 ? '+' : '') + '$' + totalPnL.toFixed(2);
-            document.getElementById('avgWin').textContent = '$' + avgWin.toFixed(2);
+            document.getElementById('totalPnL').textContent = (totalPnL >= 0 ? '+' : '') + '₹' + totalPnL.toFixed(2);
+            document.getElementById('avgWin').textContent = '₹' + avgWin.toFixed(2);
 
             const pnlElement = document.getElementById('totalPnL');
             pnlElement.parentElement.classList.remove('profit', 'loss');
