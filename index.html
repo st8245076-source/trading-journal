@@ -328,7 +328,7 @@
         <div class="main-content">
             <div class="form-section">
                 <h2 id="formTitle">Add Stock Trade</h2>
-                <form id="tradeForm" onsubmit="addTrade(event)">
+                <form id="tradeForm">
                     <div id="stocksForm">
                         <div class="form-group">
                             <label>Popular Stocks (NSE)</label>
@@ -343,18 +343,18 @@
                         </div>
                         <div class="form-group">
                             <label for="symbol">Stock Symbol *</label>
-                            <input type="text" id="symbol" required placeholder="e.g., RELIANCE">
+                            <input type="text" id="symbol" placeholder="e.g., RELIANCE">
                         </div>
                         <div class="form-group">
                             <label for="tradeType">Trade Type *</label>
-                            <select id="tradeType" required>
+                            <select id="tradeType">
                                 <option value="long">Long (Buy)</option>
                                 <option value="short">Short (Sell)</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="quantity">Quantity *</label>
-                            <input type="number" id="quantity" step="1" required placeholder="0">
+                            <input type="number" id="quantity" step="1" placeholder="0">
                         </div>
                     </div>
 
@@ -372,34 +372,34 @@
                         </div>
                         <div class="form-group">
                             <label for="optionSymbol">Underlying Symbol *</label>
-                            <input type="text" id="optionSymbol" required placeholder="e.g., NIFTY">
+                            <input type="text" id="optionSymbol" placeholder="e.g., NIFTY">
                         </div>
                         <div class="options-grid">
                             <div class="form-group">
                                 <label for="optionType">Option Type *</label>
-                                <select id="optionType" required>
+                                <select id="optionType">
                                     <option value="call">Call (CE)</option>
                                     <option value="put">Put (PE)</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="strikePrice">Strike Price *</label>
-                                <input type="number" id="strikePrice" step="0.5" required placeholder="18000">
+                                <input type="number" id="strikePrice" step="0.5" placeholder="18000">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="expiryDate">Expiry Date *</label>
-                            <input type="date" id="expiryDate" required>
+                            <input type="date" id="expiryDate">
                             <div class="info-text">Weekly/Monthly expiry (Thursday for indices)</div>
                         </div>
                         <div class="form-group">
                             <label for="lotSize">Lot Size *</label>
-                            <input type="number" id="lotSize" step="1" required placeholder="50">
+                            <input type="number" id="lotSize" step="1" placeholder="50">
                             <div class="info-text">NIFTY: 50, BANKNIFTY: 25, FINNIFTY: 40</div>
                         </div>
                         <div class="form-group">
                             <label for="lots">Number of Lots *</label>
-                            <input type="number" id="lots" step="1" required placeholder="1" value="1">
+                            <input type="number" id="lots" step="1" placeholder="1" value="1">
                         </div>
                     </div>
 
@@ -417,18 +417,18 @@
                         </div>
                         <div class="form-group">
                             <label for="cryptoPair">Crypto Pair *</label>
-                            <input type="text" id="cryptoPair" required placeholder="e.g., BTC/USDT">
+                            <input type="text" id="cryptoPair" placeholder="e.g., BTC/USDT">
                         </div>
                         <div class="form-group">
                             <label for="cryptoType">Trade Type *</label>
-                            <select id="cryptoType" required>
+                            <select id="cryptoType">
                                 <option value="long">Long (Buy)</option>
                                 <option value="short">Short (Sell)</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="cryptoQuantity">Quantity *</label>
-                            <input type="number" id="cryptoQuantity" step="0.001" required placeholder="0">
+                            <input type="number" id="cryptoQuantity" step="0.001" placeholder="0">
                         </div>
                     </div>
 
@@ -446,36 +446,36 @@
                         </div>
                         <div class="form-group">
                             <label for="forexPair">Forex Pair *</label>
-                            <input type="text" id="forexPair" required placeholder="e.g., EUR/USD">
+                            <input type="text" id="forexPair" placeholder="e.g., EUR/USD">
                         </div>
                         <div class="form-group">
                             <label for="forexType">Trade Type *</label>
-                            <select id="forexType" required>
+                            <select id="forexType">
                                 <option value="long">Long (Buy)</option>
                                 <option value="short">Short (Sell)</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="forexLotSize">Lot Size *</label>
-                            <input type="number" id="forexLotSize" step="0.01" required placeholder="1.00">
+                            <input type="number" id="forexLotSize" step="0.01" placeholder="1.00">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="entryPrice">Entry Price *</label>
-                        <input type="number" id="entryPrice" step="0.01" required placeholder="0.00">
+                        <input type="number" id="entryPrice" step="0.01" placeholder="0.00">
                     </div>
                     <div class="form-group">
                         <label for="exitPrice">Exit Price *</label>
-                        <input type="number" id="exitPrice" step="0.01" required placeholder="0.00">
+                        <input type="number" id="exitPrice" step="0.01" placeholder="0.00">
                     </div>
                     <div class="form-group">
                         <label for="entryDate">Entry Date *</label>
-                        <input type="datetime-local" id="entryDate" required>
+                        <input type="datetime-local" id="entryDate">
                     </div>
                     <div class="form-group">
                         <label for="exitDate">Exit Date *</label>
-                        <input type="datetime-local" id="exitDate" required>
+                        <input type="datetime-local" id="exitDate">
                     </div>
                     <div class="form-group">
                         <label for="strategy">Strategy</label>
@@ -486,7 +486,7 @@
                         <textarea id="notes" placeholder="Trade notes..."></textarea>
                     </div>
 
-                    <button type="submit" class="btn">Add Trade</button>
+                    <button type="button" class="btn" onclick="addTrade()">Add Trade</button>
                     <button type="button" class="btn export-btn" onclick="exportToCSV()">Export to CSV</button>
                 </form>
             </div>
@@ -511,12 +511,18 @@
     </div>
 
     <script>
-        let trades = JSON.parse(localStorage.getItem('myTrades')) || [];
-        let currentMarket = 'stocks';
-        let currentFilter = 'all';
+        var trades = [];
+        var currentMarket = 'stocks';
+        var currentFilter = 'all';
 
         window.onload = function() {
-            const now = new Date();
+            try {
+                trades = JSON.parse(localStorage.getItem('myTrades')) || [];
+            } catch(e) {
+                trades = [];
+            }
+            
+            var now = new Date();
             now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
             document.getElementById('entryDate').value = now.toISOString().slice(0, 16);
             document.getElementById('exitDate').value = now.toISOString().slice(0, 16);
@@ -526,7 +532,10 @@
 
         function switchMarket(market) {
             currentMarket = market;
-            document.querySelectorAll('.market-tab').forEach(t => t.classList.remove('active'));
+            var tabs = document.querySelectorAll('.market-tab');
+            for(var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
             event.target.classList.add('active');
             
             document.getElementById('stocksForm').style.display = 'none';
@@ -534,7 +543,7 @@
             document.getElementById('cryptoForm').style.display = 'none';
             document.getElementById('forexForm').style.display = 'none';
             
-            const titles = {
+            var titles = {
                 stocks: 'Add Stock Trade',
                 options: 'Add F&O Trade',
                 crypto: 'Add Crypto Trade',
@@ -548,7 +557,7 @@
         }
 
         function selectPair(pair, market) {
-            const inputs = {
+            var inputs = {
                 stocks: 'symbol',
                 options: 'optionSymbol',
                 crypto: 'cryptoPair',
@@ -557,77 +566,109 @@
             document.getElementById(inputs[market]).value = pair;
         }
 
-        function addTrade(e) {
-            e.preventDefault();
-            
-            let trade = {
-                id: Date.now(),
-                market: currentMarket,
-                entryPrice: parseFloat(document.getElementById('entryPrice').value),
-                exitPrice: parseFloat(document.getElementById('exitPrice').value),
-                entryDate: document.getElementById('entryDate').value,
-                exitDate: document.getElementById('exitDate').value,
-                strategy: document.getElementById('strategy').value,
-                notes: document.getElementById('notes').value
-            };
+        function addTrade() {
+            try {
+                var trade = {
+                    id: Date.now(),
+                    market: currentMarket,
+                    entryPrice: parseFloat(document.getElementById('entryPrice').value),
+                    exitPrice: parseFloat(document.getElementById('exitPrice').value),
+                    entryDate: document.getElementById('entryDate').value,
+                    exitDate: document.getElementById('exitDate').value,
+                    strategy: document.getElementById('strategy').value,
+                    notes: document.getElementById('notes').value
+                };
 
-            if (currentMarket === 'stocks') {
-                trade.symbol = document.getElementById('symbol').value.toUpperCase();
-                trade.tradeType = document.getElementById('tradeType').value;
-                trade.quantity = parseFloat(document.getElementById('quantity').value);
-                trade.pnl = trade.tradeType === 'long' 
-                    ? (trade.exitPrice - trade.entryPrice) * trade.quantity
-                    : (trade.entryPrice - trade.exitPrice) * trade.quantity;
-            } else if (currentMarket === 'options') {
-                trade.symbol = document.getElementById('optionSymbol').value.toUpperCase();
-                trade.tradeType = document.getElementById('optionType').value;
-                trade.strikePrice = parseFloat(document.getElementById('strikePrice').value);
-                trade.expiryDate = document.getElementById('expiryDate').value;
-                trade.lotSize = parseInt(document.getElementById('lotSize').value);
-                trade.lots = parseInt(document.getElementById('lots').value);
-                trade.quantity = trade.lotSize * trade.lots;
-                trade.pnl = (trade.exitPrice - trade.entryPrice) * trade.quantity;
-            } else if (currentMarket === 'crypto') {
-                trade.symbol = document.getElementById('cryptoPair').value.toUpperCase();
-                trade.tradeType = document.getElementById('cryptoType').value;
-                trade.quantity = parseFloat(document.getElementById('cryptoQuantity').value);
-                trade.pnl = trade.tradeType === 'long'
-                    ? (trade.exitPrice - trade.entryPrice) * trade.quantity
-                    : (trade.entryPrice - trade.exitPrice) * trade.quantity;
-            } else if (currentMarket === 'forex') {
-                trade.symbol = document.getElementById('forexPair').value.toUpperCase();
-                trade.tradeType = document.getElementById('forexType').value;
-                trade.lotSize = parseFloat(document.getElementById('forexLotSize').value);
-                trade.quantity = trade.lotSize;
-                trade.pnl = (trade.exitPrice - trade.entryPrice) * trade.lotSize * 100000;
+                if (currentMarket === 'stocks') {
+                    trade.symbol = document.getElementById('symbol').value.toUpperCase();
+                    trade.tradeType = document.getElementById('tradeType').value;
+                    trade.quantity = parseFloat(document.getElementById('quantity').value);
+                    trade.pnl = trade.tradeType === 'long' 
+                        ? (trade.exitPrice - trade.entryPrice) * trade.quantity
+                        : (trade.entryPrice - trade.exitPrice) * trade.quantity;
+                } else if (currentMarket === 'options') {
+                    trade.symbol = document.getElementById('optionSymbol').value.toUpperCase();
+                    trade.tradeType = document.getElementById('optionType').value;
+                    trade.strikePrice = parseFloat(document.getElementById('strikePrice').value);
+                    trade.expiryDate = document.getElementById('expiryDate').value;
+                    trade.lotSize = parseInt(document.getElementById('lotSize').value);
+                    trade.lots = parseInt(document.getElementById('lots').value);
+                    trade.quantity = trade.lotSize * trade.lots;
+                    trade.pnl = (trade.exitPrice - trade.entryPrice) * trade.quantity;
+                } else if (currentMarket === 'crypto') {
+                    trade.symbol = document.getElementById('cryptoPair').value.toUpperCase();
+                    trade.tradeType = document.getElementById('cryptoType').value;
+                    trade.quantity = parseFloat(document.getElementById('cryptoQuantity').value);
+                    trade.pnl = trade.tradeType === 'long'
+                        ? (trade.exitPrice - trade.entryPrice) * trade.quantity
+                        : (trade.entryPrice - trade.exitPrice) * trade.quantity;
+                } else if (currentMarket === 'forex') {
+                    trade.symbol = document.getElementById('forexPair').value.toUpperCase();
+                    trade.tradeType = document.getElementById('forexType').value;
+                    trade.lotSize = parseFloat(document.getElementById('forexLotSize').value);
+                    trade.quantity = trade.lotSize;
+                    trade.pnl = (trade.exitPrice - trade.entryPrice) * trade.lotSize * 100000;
+                }
+
+                trades.unshift(trade);
+                localStorage.setItem('myTrades', JSON.stringify(trades));
+                
+                document.getElementById('tradeForm').reset();
+                var now = new Date();
+                now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+                document.getElementById('entryDate').value = now.toISOString().slice(0, 16);
+                document.getElementById('exitDate').value = now.toISOString().slice(0, 16);
+                
+                renderTrades();
+                updateStats();
+                alert('Trade added successfully!');
+            } catch(e) {
+                alert('Error adding trade: ' + e.message);
             }
-
-            trades.unshift(trade);
-            localStorage.setItem('myTrades', JSON.stringify(trades));
-            
-            document.getElementById('tradeForm').reset();
-            const now = new Date();
-            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-            document.getElementById('entryDate').value = now.toISOString().slice(0, 16);
-            document.getElementById('exitDate').value = now.toISOString().slice(0, 16);
-            
-            renderTrades();
-            updateStats();
-            alert('Trade added successfully!');
         }
 
         function renderTrades() {
-            const tradesList = document.getElementById('tradesList');
-            let filteredTrades = trades.filter(t => t.market === currentMarket);
+            var tradesList = document.getElementById('tradesList');
+            var filteredTrades = [];
+            
+            for(var i = 0; i < trades.length; i++) {
+                if(trades[i].market === currentMarket) {
+                    filteredTrades.push(trades[i]);
+                }
+            }
 
             if (currentFilter === 'long') {
-                filteredTrades = filteredTrades.filter(t => t.tradeType === 'long' || t.tradeType === 'call');
+                var temp = [];
+                for(var i = 0; i < filteredTrades.length; i++) {
+                    if(filteredTrades[i].tradeType === 'long' || filteredTrades[i].tradeType === 'call') {
+                        temp.push(filteredTrades[i]);
+                    }
+                }
+                filteredTrades = temp;
             } else if (currentFilter === 'short') {
-                filteredTrades = filteredTrades.filter(t => t.tradeType === 'short' || t.tradeType === 'put');
+                var temp = [];
+                for(var i = 0; i < filteredTrades.length; i++) {
+                    if(filteredTrades[i].tradeType === 'short' || filteredTrades[i].tradeType === 'put') {
+                        temp.push(filteredTrades[i]);
+                    }
+                }
+                filteredTrades = temp;
             } else if (currentFilter === 'profit') {
-                filteredTrades = filteredTrades.filter(t => t.pnl > 0);
+                var temp = [];
+                for(var i = 0; i < filteredTrades.length; i++) {
+                    if(filteredTrades[i].pnl > 0) {
+                        temp.push(filteredTrades[i]);
+                    }
+                }
+                filteredTrades = temp;
             } else if (currentFilter === 'loss') {
-                filteredTrades = filteredTrades.filter(t => t.pnl < 0);
+                var temp = [];
+                for(var i = 0; i < filteredTrades.length; i++) {
+                    if(filteredTrades[i].pnl < 0) {
+                        temp.push(filteredTrades[i]);
+                    }
+                }
+                filteredTrades = temp;
             }
 
             if (filteredTrades.length === 0) {
@@ -635,47 +676,72 @@
                 return;
             }
 
-            tradesList.innerHTML = filteredTrades.map(trade => {
-                let detailsHTML = '';
+            var html = '';
+            for(var i = 0; i < filteredTrades.length; i++) {
+                var trade = filteredTrades[i];
+                var detailsHTML = '';
+                
                 if (trade.market === 'options') {
-                    const optionLabel = trade.tradeType === 'call' ? 'CE' : 'PE';
-                    detailsHTML = `<div class="trade-detail"><strong>Strike:</strong> ₹${trade.strikePrice.toFixed(2)} ${optionLabel}</div><div class="trade-detail"><strong>Expiry:</strong> ${new Date(trade.expiryDate).toLocaleDateString()}</div><div class="trade-detail"><strong>Lot Size:</strong> ${trade.lotSize}</div><div class="trade-detail"><strong>Lots:</strong> ${trade.lots}</div><div class="trade-detail"><strong>Total Qty:</strong> ${trade.quantity}</div>`;
+                    var optionLabel = trade.tradeType === 'call' ? 'CE' : 'PE';
+                    detailsHTML = '<div class="trade-detail"><strong>Strike:</strong> ₹' + trade.strikePrice.toFixed(2) + ' ' + optionLabel + '</div><div class="trade-detail"><strong>Expiry:</strong> ' + new Date(trade.expiryDate).toLocaleDateString() + '</div><div class="trade-detail"><strong>Lot Size:</strong> ' + trade.lotSize + '</div><div class="trade-detail"><strong>Lots:</strong> ' + trade.lots + '</div><div class="trade-detail"><strong>Total Qty:</strong> ' + trade.quantity + '</div>';
                 } else {
-                    detailsHTML = `<div class="trade-detail"><strong>Quantity:</strong> ${trade.quantity}</div>`;
+                    detailsHTML = '<div class="trade-detail"><strong>Quantity:</strong> ' + trade.quantity + '</div>';
                 }
                 
-                const typeLabel = trade.market === 'options' ? (trade.tradeType === 'call' ? 'CE' : 'PE') : trade.tradeType.toUpperCase();
+                var typeLabel = trade.market === 'options' ? (trade.tradeType === 'call' ? 'CE' : 'PE') : trade.tradeType.toUpperCase();
                 
-                return `<div class="trade-card">
-                    <div class="trade-header">
-                        <div class="trade-symbol">${trade.symbol}<span class="market-badge ${trade.market}">${trade.market.toUpperCase()}</span></div>
-                        <div class="trade-type ${trade.tradeType}">${typeLabel}</div>
-                    </div>
-                    <div class="trade-details">
-                        <div class="trade-detail"><strong>Entry:</strong> ₹${trade.entryPrice.toFixed(2)}</div>
-                        <div class="trade-detail"><strong>Exit:</strong> ₹${trade.exitPrice.toFixed(2)}</div>
-                        ${detailsHTML}
-                        <div class="trade-detail"><strong>Strategy:</strong> ${trade.strategy || 'N/A'}</div>
-                        <div class="trade-detail"><strong>Entry:</strong> ${new Date(trade.entryDate).toLocaleDateString()}</div>
-                        <div class="trade-detail"><strong>Exit:</strong> ${new Date(trade.exitDate).toLocaleDateString()}</div>
-                    </div>
-                    <div class="trade-pnl ${trade.pnl >= 0 ? 'profit' : 'loss'}">
-                        ${trade.pnl >= 0 ? '+' : ''}₹${trade.pnl.toFixed(2)}
-                    </div>
-                    ${trade.notes ? `<div class="trade-notes">${trade.notes}</div>` : ''}
-                    <button class="btn-small" onclick="deleteTrade(${trade.id})">Delete</button>
-                </div>`;
-            }).join('');
+                html += '<div class="trade-card">';
+                html += '<div class="trade-header">';
+                html += '<div class="trade-symbol">' + trade.symbol + '<span class="market-badge ' + trade.market + '">' + trade.market.toUpperCase() + '</span></div>';
+                html += '<div class="trade-type ' + trade.tradeType + '">' + typeLabel + '</div>';
+                html += '</div>';
+                html += '<div class="trade-details">';
+                html += '<div class="trade-detail"><strong>Entry:</strong> ₹' + trade.entryPrice.toFixed(2) + '</div>';
+                html += '<div class="trade-detail"><strong>Exit:</strong> ₹' + trade.exitPrice.toFixed(2) + '</div>';
+                html += detailsHTML;
+                html += '<div class="trade-detail"><strong>Strategy:</strong> ' + (trade.strategy || 'N/A') + '</div>';
+                html += '<div class="trade-detail"><strong>Entry:</strong> ' + new Date(trade.entryDate).toLocaleDateString() + '</div>';
+                html += '<div class="trade-detail"><strong>Exit:</strong> ' + new Date(trade.exitDate).toLocaleDateString() + '</div>';
+                html += '</div>';
+                html += '<div class="trade-pnl ' + (trade.pnl >= 0 ? 'profit' : 'loss') + '">';
+                html += (trade.pnl >= 0 ? '+' : '') + '₹' + trade.pnl.toFixed(2);
+                html += '</div>';
+                if(trade.notes) {
+                    html += '<div class="trade-notes">' + trade.notes + '</div>';
+                }
+                html += '<button class="btn-small" onclick="deleteTrade(' + trade.id + ')">Delete</button>';
+                html += '</div>';
+            }
+            
+            tradesList.innerHTML = html;
         }
 
         function updateStats() {
-            const marketTrades = trades.filter(t => t.market === currentMarket);
-            const totalTrades = marketTrades.length;
-            const winningTrades = marketTrades.filter(t => t.pnl > 0).length;
-            const losingTrades = marketTrades.filter(t => t.pnl < 0).length;
-            const winRate = totalTrades > 0 ? ((winningTrades / totalTrades) * 100).toFixed(1) : 0;
-            const totalPnL = marketTrades.reduce((sum, t) => sum + t.pnl, 0);
-            const avgWin = winningTrades > 0 ? marketTrades.filter(t => t.pnl > 0).reduce((sum, t) => sum + t.pnl, 0) / winningTrades : 0;
+            var marketTrades = [];
+            for(var i = 0; i < trades.length; i++) {
+                if(trades[i].market === currentMarket) {
+                    marketTrades.push(trades[i]);
+                }
+            }
+            
+            var totalTrades = marketTrades.length;
+            var winningTrades = 0;
+            var losingTrades = 0;
+            var totalPnL = 0;
+            var totalWins = 0;
+            
+            for(var i = 0; i < marketTrades.length; i++) {
+                totalPnL += marketTrades[i].pnl;
+                if(marketTrades[i].pnl > 0) {
+                    winningTrades++;
+                    totalWins += marketTrades[i].pnl;
+                } else if(marketTrades[i].pnl < 0) {
+                    losingTrades++;
+                }
+            }
+            
+            var winRate = totalTrades > 0 ? ((winningTrades / totalTrades) * 100).toFixed(1) : 0;
+            var avgWin = winningTrades > 0 ? totalWins / winningTrades : 0;
 
             document.getElementById('totalTrades').textContent = totalTrades;
             document.getElementById('winningTrades').textContent = winningTrades;
@@ -684,7 +750,7 @@
             document.getElementById('totalPnL').textContent = (totalPnL >= 0 ? '+' : '') + '₹' + totalPnL.toFixed(2);
             document.getElementById('avgWin').textContent = '₹' + avgWin.toFixed(2);
 
-            const pnlElement = document.getElementById('totalPnL');
+            var pnlElement = document.getElementById('totalPnL');
             pnlElement.parentElement.classList.remove('profit', 'loss');
             if (totalPnL > 0) pnlElement.parentElement.classList.add('profit');
             if (totalPnL < 0) pnlElement.parentElement.classList.add('loss');
@@ -692,14 +758,23 @@
 
         function filterTrades(filter) {
             currentFilter = filter;
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            var btns = document.querySelectorAll('.filter-btn');
+            for(var i = 0; i < btns.length; i++) {
+                btns[i].classList.remove('active');
+            }
             event.target.classList.add('active');
             renderTrades();
         }
 
         function deleteTrade(id) {
             if (confirm('Delete this trade?')) {
-                trades = trades.filter(t => t.id !== id);
+                var newTrades = [];
+                for(var i = 0; i < trades.length; i++) {
+                    if(trades[i].id !== id) {
+                        newTrades.push(trades[i]);
+                    }
+                }
+                trades = newTrades;
                 localStorage.setItem('myTrades', JSON.stringify(trades));
                 renderTrades();
                 updateStats();
@@ -707,23 +782,30 @@
         }
 
         function exportToCSV() {
-            const marketTrades = trades.filter(t => t.market === currentMarket);
+            var marketTrades = [];
+            for(var i = 0; i < trades.length; i++) {
+                if(trades[i].market === currentMarket) {
+                    marketTrades.push(trades[i]);
+                }
+            }
+            
             if (marketTrades.length === 0) {
                 alert('No trades to export!');
                 return;
             }
 
-            const headers = ['Market', 'Symbol', 'Type', 'Entry', 'Exit', 'Qty', 'PnL', 'Entry Date', 'Exit Date', 'Strategy', 'Notes'];
-            let csv = headers.join(',') + '\n';
+            var headers = ['Market', 'Symbol', 'Type', 'Entry', 'Exit', 'Qty', 'PnL', 'Entry Date', 'Exit Date', 'Strategy', 'Notes'];
+            var csv = headers.join(',') + '\n';
             
-            marketTrades.forEach(t => {
-                const row = [t.market, t.symbol, t.tradeType, t.entryPrice, t.exitPrice, t.quantity, t.pnl.toFixed(2), t.entryDate, t.exitDate, t.strategy || '', t.notes || ''];
-                csv += row.map(cell => '"' + cell + '"').join(',') + '\n';
-            });
+            for(var i = 0; i < marketTrades.length; i++) {
+                var t = marketTrades[i];
+                var row = [t.market, t.symbol, t.tradeType, t.entryPrice, t.exitPrice, t.quantity, t.pnl.toFixed(2), t.entryDate, t.exitDate, t.strategy || '', t.notes || ''];
+                csv += row.map(function(cell) { return '"' + cell + '"'; }).join(',') + '\n';
+            }
 
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
+            var blob = new Blob([csv], { type: 'text/csv' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
             a.href = url;
             a.download = currentMarket + '-trades-' + new Date().toISOString().split('T')[0] + '.csv';
             a.click();
